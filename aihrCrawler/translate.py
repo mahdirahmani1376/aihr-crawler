@@ -21,6 +21,11 @@ with open(file[0], mode='r', encoding='utf-8') as f:
     response = Selector(text=file_content)
     response_translate = file_content
     all_p_tags = response.css('*').getall()
+    all_contents = response.css("#content :not(noscript,script,style) *::text").getall()
+    all_contents = response.css("#content  div.content-body *::text").getall()
+    test_parsed = [" ".join(i.split()) for i in all_contents if not i.isspace()]
+    test_parsed_string = "\n".join(test_parsed)
+
     all_p_tags_texts = response.css('*::text').getall()
     all_texts.extend(all_p_tags_texts)
 
